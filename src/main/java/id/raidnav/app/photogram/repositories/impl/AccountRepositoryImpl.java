@@ -7,11 +7,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Transactional
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -20,8 +18,10 @@ public class AccountRepositoryImpl implements AccountRepository {
 
   @Override
   public Optional<Account> findByUserName(String userName) {
-    Account account = mongoTemplate.findOne(new Query(Criteria.where("username").is(userName)), Account.class);
+    Account account = mongoTemplate.findOne(new Query(Criteria.where("username").is(userName)), Account.class, "account");
     return account == null ? Optional.empty() : Optional.of(account);
+//    MongoCollection<Document> accounts = mongoTemplate.getCollection("account");
+
   }
 
   @Override

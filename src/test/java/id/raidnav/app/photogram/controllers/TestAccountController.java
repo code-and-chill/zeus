@@ -38,23 +38,23 @@ public class TestAccountController {
   public void initMocks() {
     MockitoAnnotations.initMocks(this);
     data = Account.builder()
-        .userName("foobar")
+        .username("foobar")
         .bio("happy person")
-        .gender(Gender.MALE)
+        .gender("MALE")
         .phoneNumber("+1234567890")
         .build();
   }
 
   @Test
   public void testGetAccount() {
-    Mockito.doReturn(Optional.of(Account.builder().userName("raidnav").build())).when(account).get("raidnav");
+    Mockito.doReturn(Optional.of(Account.builder().username("raidnav").build())).when(account).get("raidnav");
     Mockito.doReturn(new Page<Account>(new ArrayList<>(), 143L, 1, 1)).when(followee).getFollowers("raidnav", 1, 1);
     Mockito.doReturn(new Page<Account>(new ArrayList<>(), 67L, 1, 1)).when(followee).getFollowees("raidnav", 1, 1);
 
     ResponseEntity<GetAccountResponse> response = controller.getAccount("raidnav");
 
     Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-    Assert.assertEquals(response.getBody().getAccount(), Account.builder().userName("raidnav").build());
+    Assert.assertEquals(response.getBody().getAccount(), Account.builder().username("raidnav").build());
     Assert.assertEquals(response.getBody().getNumFollowees(), Long.valueOf(67));
     Assert.assertEquals(response.getBody().getNumFollowers(), Long.valueOf(143));
   }
@@ -63,7 +63,7 @@ public class TestAccountController {
   public void testCreateAccount() {
     Mockito.doReturn(data).when(account).create(data);
 
-    ResponseEntity<Account> response = controller.addAccount(new AccountSpec(data));
+    ResponseEntity<Account> response = controller.addAccount(data);
 
     Assert.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
     Assert.assertEquals(response.getBody(), data);

@@ -18,19 +18,19 @@ import java.io.Serializable;
 public class Account implements Serializable {
 
   @Id
-  private String userName;
+  private String username;
   @Indexed
-  private String realName;
+  private String realname;
   private String website;
   private String bio;
   private String email;
   private String phoneNumber;
-  private Gender gender;
+  private String gender;
   private String photoUrl;
-  private DateTime bornDate;
-  private AccountType type;
-  private DateTime createdAt;
-  private DateTime updatedAt;
+  private String bornDate;
+  private String type;
+  private String createdAt;
+  private String updatedAt;
 }
 
 

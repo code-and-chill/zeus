@@ -37,11 +37,11 @@ public class AccountController {
     return ResponseEntity.ok(new GetAccountResponse(account.get(), followers.getTotal(), followee.getTotal()));
   }
 
-  @PostMapping(value = "/")
-  public ResponseEntity<Account> addAccount(@RequestBody @Validated AccountSpec spec) {
+  @PostMapping(value = "")
+  public ResponseEntity<Account> addAccount(@RequestBody @Validated Account spec) {
     return ResponseEntity
-        .created(URI.create("accounts/" + spec.getAccount().getUserName()))
-        .body(accountService.create(spec.getAccount()));
+        .created(URI.create("accounts/" + spec.getUsername()))
+        .body(accountService.create(spec));
   }
 
   @PutMapping("/{username}")

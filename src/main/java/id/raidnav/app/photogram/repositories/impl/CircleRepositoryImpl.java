@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Repository
 public class CircleRepositoryImpl implements CircleRepository {
 
